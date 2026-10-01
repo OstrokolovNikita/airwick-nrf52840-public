@@ -2,20 +2,22 @@
 
 This project converts an off-the-shelf automatic aerosol dispenser into a Zigbee sleepy end device using an nRF52840 ProMicro/nice!nano-compatible board.
 
-## Current firmware
+The enclosure and spray mechanism are commercial. The electronics, firmware, Zigbee cluster, scheduling logic and integration are custom.
 
-The exact v0.27 firmware package used with the Zigbee2MQTT converter is published as a GitHub pre-release:
+## Files
 
-- Release: https://github.com/OstrokolovNikita/airwick-nrf52840/releases/tag/v0.27-testing
-- Prebuilt UF2: `AirWick_nRF52840_v0.27.uf2`
-- Full source archive: `AirWick-nRF52840-v0.27-SOURCE.tar.gz`
-- SHA-256 files and build-verification JSON are included in the release.
+The exact v0.27 package used with the Zigbee2MQTT contribution is published in this repository:
 
-The v0.27 source/development branch is:
+- [Prebuilt UF2](../firmware/v0.27/AirWick_nRF52840_v0.27.uf2)
+- [Exact source archive](../firmware/v0.27/AirWick-nRF52840-v0.27-SOURCE.tar.gz)
+- [SHA-256](../firmware/v0.27/AirWick_nRF52840_v0.27.sha256)
+- [Build verification](../firmware/v0.27/build-verification-v0.27.json)
+- [Matching external converter](../firmware/v0.27/airwick_nrf52840_v0.27.mjs)
+- [Wiring diagram](AirWick_nRF52840_wiring.svg)
 
-- https://github.com/OstrokolovNikita/airwick-nrf52840/tree/v0.27-duration
+UF2 SHA-256:
 
-v0.27 keeps the same hardware wiring as the previous tested revisions; its functional change is the persistent configurable spray pulse duration (300–1000 ms).
+`a289bffd6409b5af8af976175b58ab323f63b151377a8d6c4c046ab69b8993a6`
 
 ## Hardware
 
@@ -52,32 +54,28 @@ Motor(+) ------------ motor supply
 
 The flyback diode is connected across the motor with the cathode/stripe to `Motor(+)` and the anode to `Motor(-)` / MOSFET drain.
 
-Full hardware notes and the wiring diagram:
-
-- Hardware: https://github.com/OstrokolovNikita/airwick-nrf52840/blob/v0.27-duration/docs/HARDWARE.md
-- Wiring SVG: https://github.com/OstrokolovNikita/airwick-nrf52840/blob/v0.27-duration/docs/AirWick_nRF52840_wiring.svg
+See the [wiring diagram](AirWick_nRF52840_wiring.svg) for the complete connection layout.
 
 ## Build
 
-The verified build environment is:
+Verified build environment:
 
 - nRF Connect SDK v3.4.0
 - Zephyr 4.4.0
 - board target: `promicro_nrf52840/nrf52840/uf2`
+- Zigbee role: End Device
 
-Typical build command:
+Extract `AirWick-nRF52840-v0.27-SOURCE.tar.gz`, enter the application directory and build with:
 
 ```bash
 west build -b promicro_nrf52840/nrf52840/uf2 . -d build -p always --no-sysbuild
 ```
 
-The resulting image is:
+The resulting firmware image is:
 
 ```text
 build/zephyr/zephyr.uf2
 ```
-
-The v0.27 release also contains the exact source archive and the build-verification output used for the published UF2.
 
 ## Flashing
 
@@ -98,8 +96,4 @@ Do not erase Zigbee/NVS state unless a full factory reset is actually required.
 - Endpoint: `10`
 - Custom cluster: `0xFC00`
 
-The current external converter matching v0.27 is also published in the repository and in the v0.27 release.
-
-## Notes
-
-This is a DIY conversion of a commercial dispenser enclosure and spray mechanism. The electronics, firmware, Zigbee cluster, scheduling logic and integration are custom.
+v0.27 adds a persistent configurable spray pulse duration of 300–1000 ms while keeping the same device identity and wiring.
