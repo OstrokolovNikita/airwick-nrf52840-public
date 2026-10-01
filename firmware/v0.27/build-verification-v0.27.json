@@ -1,0 +1,19 @@
+{
+  "version": "v0.27",
+  "status": "EXPERIMENTAL",
+  "compile": "PASS",
+  "uf2_structural_checks": "PASS",
+  "hardware_test": "NOT PERFORMED",
+  "motor_duration_ms": [
+    300,
+    1000
+  ],
+  "default_ms": 600,
+  "uf2_bytes": 629760,
+  "app_start": "0x26000",
+  "app_end_exclusive": "0x72e00",
+  "blocks": 1230,
+  "sha256": "a289bffd6409b5af8af976175b58ab323f63b151377a8d6c4c046ab69b8993a6",
+  "source_main_sha256": "458cf04c7d7fb22d50721d1f60349f6829da26e5871f51e047d37db4f2ac980f",
+  "converter_sha256": "342fa97ef6b7e5a30b90c389909cdea045e505b788676d4ed43158cfb4599511"
+}
