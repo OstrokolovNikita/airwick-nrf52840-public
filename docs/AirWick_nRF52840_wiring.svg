@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1180" viewBox="0 0 1600 1180">
+  <rect width="1600" height="1180" fill="#ffffff"/>
+  <defs>
+    <style>
+      .title{font:700 34px Arial,sans-serif;fill:#111}
+      .sub{font:16px Arial,sans-serif;fill:#555}
+      .h{font:700 22px Arial,sans-serif;fill:#111}
+      .t{font:16px Arial,sans-serif;fill:#222}
+      .s{font:14px Arial,sans-serif;fill:#555}
+      .pin{font:700 16px Arial,sans-serif;fill:#111}
+      .box{fill:#fff;stroke:#333;stroke-width:2}
+      .panel{fill:#fafafa;stroke:#555;stroke-width:2}
+      .wire{fill:none;stroke:#222;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+      .thin{fill:none;stroke:#444;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+      .node{fill:#222}
+      .note{fill:#fff6d8;stroke:#b57a00;stroke-width:2}
+      .ok{fill:#eef8ef;stroke:#3c8b4c;stroke-width:1.5}
+    </style>
+  </defs>
+
+  <text x="55" y="55" class="title">AirWick nRF52840 — stable v0.22 wiring</text>
+  <text x="55" y="84" class="sub">Reference schematic. Board pin names match the labels printed on the ProMicro / nice!nano-style board.</text>
+
+  <!-- PIN MAP -->
+  <rect x="55" y="120" width="500" height="400" rx="16" class="panel"/>
+  <text x="85" y="158" class="h">Controller pin map</text>
+  <rect x="85" y="185" width="440" height="285" rx="12" class="box"/>
+  <text x="305" y="218" text-anchor="middle" class="h">nRF52840 controller</text>
+  <text x="305" y="246" text-anchor="middle" class="s">ProMicro / nice!nano compatible • 1S Li-ion on B+/B-</text>
+  <text x="110" y="285" class="pin">017</text><text x="175" y="285" class="t">motor MOSFET gate</text>
+  <text x="110" y="320" class="pin">002</text><text x="175" y="320" class="t">local spray button</text>
+  <text x="110" y="355" class="pin">029</text><text x="175" y="355" class="t">battery ADC</text>
+  <text x="110" y="390" class="pin">020</text><text x="175" y="390" class="t">selector ladder excite</text>
+  <text x="110" y="425" class="pin">031</text><text x="175" y="425" class="t">selector ADC</text>
+  <text x="110" y="460" class="pin">006</text><text x="175" y="460" class="t">status LED (disabled in v0.22)</text>
+  <text x="85" y="500" class="s">B+ = battery positive • B- / GND = common ground</text>
+
+  <!-- MOTOR -->
+  <rect x="585" y="120" width="960" height="400" rx="16" class="panel"/>
+  <text x="615" y="158" class="h">Motor driver</text>
+  <text x="615" y="184" class="s">Low-side N-MOSFET. The motor supply must suit the motor; do not assume a 1S Li-ion can be connected directly.</text>
+
+  <rect x="630" y="240" width="92" height="48" rx="10" class="box"/><text x="676" y="270" text-anchor="middle" class="pin">017</text>
+  <path d="M722 264 H770" class="wire"/>
+  <rect x="770" y="242" width="105" height="44" rx="9" class="box"/><text x="822" y="269" text-anchor="middle" class="t">~100 Ω</text>
+  <path d="M875 264 H955" class="wire"/>
+
+  <rect x="955" y="215" width="175" height="155" rx="14" class="box"/>
+  <text x="1042" y="250" text-anchor="middle" class="h">AO3400</text>
+  <text x="1042" y="275" text-anchor="middle" class="s">A09T / N-MOSFET</text>
+  <text x="972" y="320" class="pin">G</text><text x="1090" y="320" class="pin">D</text><text x="1030" y="355" class="pin">S</text>
+  <path d="M1130 310 H1190 V335" class="wire"/>
+  <path d="M1042 370 V435" class="wire"/>
+  <line x1="995" y1="435" x2="1090" y2="435" class="wire"/>
+  <line x1="1010" y1="450" x2="1075" y2="450" class="thin"/>
+  <line x1="1025" y1="463" x2="1060" y2="463" class="thin"/>
+  <text x="1100" y="455" class="s">common GND</text>
+
+  <rect x="1240" y="260" width="180" height="105" rx="14" class="box"/>
+  <text x="1330" y="300" text-anchor="middle" class="h">Motor</text>
+  <text x="1330" y="328" text-anchor="middle" class="s">AirWick ~3 V type</text>
+  <text x="1255" y="355" class="pin">−</text><text x="1395" y="355" class="pin">+</text>
+  <path d="M1190 335 H1240" class="wire"/>
+  <path d="M1420 335 H1490 V225 H1240" class="wire"/>
+  <text x="1260" y="217" class="pin">regulated / suitable Motor+</text>
+
+  <path d="M1190 335 V410 H1250" class="wire"/>
+  <polygon points="1250,395 1285,410 1250,425" fill="#fff" stroke="#222" stroke-width="2"/>
+  <line x1="1290" y1="391" x2="1290" y2="429" class="thin"/>
+  <path d="M1290 410 H1490 V335" class="wire"/>
+  <text x="1195" y="449" class="s">flyback diode: anode → Motor− / Drain</text>
+  <text x="1195" y="472" class="s">cathode stripe → Motor+</text>
+
+  <!-- BATTERY SENSE -->
+  <rect x="55" y="550" width="740" height="400" rx="16" class="panel"/>
+  <text x="85" y="588" class="h">Battery measurement</text>
+  <text x="85" y="614" class="s">High-value divider: about 2 µA continuously at 4.0 V.</text>
+
+  <rect x="95" y="680" width="90" height="48" rx="10" class="box"/><text x="140" y="710" text-anchor="middle" class="pin">B+</text>
+  <path d="M185 704 H235" class="wire"/>
+  <rect x="235" y="682" width="100" height="44" rx="9" class="box"/><text x="285" y="709" text-anchor="middle" class="t">1 MΩ</text>
+  <path d="M335 704 H430" class="wire"/>
+  <circle cx="430" cy="704" r="6" class="node"/>
+  <text x="448" y="688" class="s">sense node</text>
+
+  <path d="M430 704 H575" class="wire"/>
+  <rect x="575" y="680" width="92" height="48" rx="10" class="box"/><text x="621" y="710" text-anchor="middle" class="pin">029</text>
+
+  <path d="M430 704 V770" class="wire"/>
+  <rect x="380" y="770" width="100" height="44" rx="9" class="box"/><text x="430" y="797" text-anchor="middle" class="t">1 MΩ</text>
+  <path d="M430 814 V865" class="wire"/>
+
+  <path d="M520 704 V768" class="thin"/>
+  <line x1="495" y1="768" x2="545" y2="768" class="thin"/>
+  <line x1="495" y1="788" x2="545" y2="788" class="thin"/>
+  <path d="M520 788 V865" class="thin"/>
+  <text x="555" y="784" class="t">100 nF</text>
+
+  <line x1="320" y1="865" x2="620" y2="865" class="wire"/>
+  <line x1="355" y1="880" x2="585" y2="880" class="thin"/>
+  <line x1="390" y1="893" x2="550" y2="893" class="thin"/>
+  <text x="635" y="873" class="pin">GND / B−</text>
+  <text x="95" y="925" class="s">Topology: B+ → 1 MΩ → 029 sense → 1 MΩ → GND; 100 nF from 029 sense to GND.</text>
+
+  <!-- SELECTOR -->
+  <rect x="825" y="550" width="720" height="400" rx="16" class="panel"/>
+  <text x="855" y="588" class="h">4-position selector</text>
+  <text x="855" y="614" class="s">020 powers the resistor ladder only while measuring; 031 reads the sense node.</text>
+
+  <rect x="865" y="655" width="92" height="48" rx="10" class="box"/><text x="911" y="685" text-anchor="middle" class="pin">020</text>
+  <path d="M957 679 H1010" class="wire"/>
+  <rect x="1010" y="645" width="210" height="70" rx="12" class="box"/>
+  <text x="1115" y="672" text-anchor="middle" class="pin">4-position switch</text>
+  <text x="1115" y="696" text-anchor="middle" class="s">selects one path</text>
+
+  <text x="865" y="755" class="pin">OFF</text><text x="1015" y="755" class="t">sense → GND / low</text>
+  <text x="865" y="787" class="pin">AUTO</text><text x="1015" y="787" class="t">020 → 22 kΩ → sense</text>
+  <text x="865" y="819" class="pin">SCHEDULE</text><text x="1015" y="819" class="t">020 → 100 kΩ → sense</text>
+  <text x="865" y="851" class="pin">PROGRAMMABLE</text><text x="1015" y="851" class="t">020 → 330 kΩ → sense</text>
+
+  <circle cx="1295" cy="760" r="6" class="node"/>
+  <text x="1315" y="744" class="s">sense</text>
+  <path d="M1295 760 H1370" class="wire"/>
+  <rect x="1370" y="736" width="92" height="48" rx="10" class="box"/><text x="1416" y="766" text-anchor="middle" class="pin">031</text>
+  <path d="M1295 760 V815" class="wire"/>
+  <rect x="1245" y="815" width="100" height="44" rx="9" class="box"/><text x="1295" y="842" text-anchor="middle" class="t">100 kΩ</text>
+  <path d="M1295 859 V875" class="wire"/>
+  <line x1="1260" y1="875" x2="1330" y2="875" class="wire"/>
+  <line x1="1273" y1="887" x2="1317" y2="887" class="thin"/>
+  <text x="1360" y="842" class="s">pulldown</text>
+
+  <rect x="850" y="900" width="655" height="36" rx="9" class="ok"/>
+  <text x="870" y="923" class="s">v0.22 ADC: OFF ≤300 mV • PROGRAM 450–1100 • SCHEDULE 1250–2050 • AUTO 2250–3150 mV</text>
+
+  <!-- BUTTON & POWER NOTES -->
+  <rect x="55" y="980" width="610" height="140" rx="16" class="panel"/>
+  <text x="85" y="1018" class="h">Local spray button</text>
+  <rect x="100" y="1040" width="92" height="44" rx="9" class="box"/><text x="146" y="1068" text-anchor="middle" class="pin">002</text>
+  <path d="M192 1062 H260" class="wire"/>
+  <circle cx="280" cy="1062" r="8" fill="#fff" stroke="#222" stroke-width="2"/>
+  <circle cx="350" cy="1062" r="8" fill="#fff" stroke="#222" stroke-width="2"/>
+  <line x1="288" y1="1056" x2="338" y2="1034" class="thin"/>
+  <path d="M350 1062 H410" class="wire"/>
+  <text x="430" y="1068" class="t">GND</text>
+  <text x="85" y="1104" class="s">Active-low momentary switch. Firmware debounce + global 5 s spray lockout.</text>
+
+  <rect x="695" y="980" width="850" height="140" rx="16" class="note"/>
+  <text x="725" y="1018" class="h">Power / clone warning</text>
+  <text x="725" y="1050" class="t">1S Li-ion: 3.0…4.2 V on B+/B-. USB charger/regulator behavior depends on the exact board clone.</text>
+  <text x="725" y="1078" class="t">Before power: verify board pinout, AO3400 orientation, common GND, flyback diode polarity and actual motor voltage.</text>
+  <text x="725" y="1106" class="s">v0.22 does not force the nRF52840 hardware DCDC mode because the clone power stage has not been verified.</text>
+</svg>
